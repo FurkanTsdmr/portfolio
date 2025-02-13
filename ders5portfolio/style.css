@@ -1,4 +1,56 @@
-*{
+/* <!-- 
+root{}:CSS değişkenlerini birden fazla yerde / tekrar eden
+yerleri merkezi nktada birleştirir.
+--bg-color,--second-bg-color,... --
+
+clip-path:polyn(20% 15% 80% 15% 100% 70% 0 70%)
+20% 15%:ÜST SOL KÖŞE
+80-15 : ÜST SAĞ KÖŞE
+100-70: ALT SAĞ KÖŞE
+0 - 70 : ALT SOL KÖŞE
+
+display:inline-flex;
+inline:eleman,diğer inline etiketlerle yan yana gelir.
+flex:kendisini container ol. görüp, alt elemanlarına müdahaleye 
+imkan sağlıyor.
+
+rem ve px:
+px:ekran çözünürlüğü ve boyutu ile işiklidir. ekranın fiziksel
+pix. boyutuna göre davranır.
+
+rem:kök(root) elementinin yazı tipi boyutunu bizlere veririr.
+1rem -> 16px
+2rem -> 32px
+
+border-radius: 30% 70% 53% 47% / 26% 46% 54% 74;
+İLK grup(Köşe Yarıçapları):üst sol,üst sağ,alt sağ,alt sol
+İkinci Grup(Elips Şeklinde Border Radius)
+
+    @keyframes animate-text
+    to {
+    background-size:100%;
+    }
+    @keyframes: animasyon tanımlaması yapacagımı söylüyorm. 
+    ekranda kapsayıcı kısmı belirtir.
+    100%:kapsayıcı olacak genişlik ve yükseklik.
+
+
+    grid-template-columns:repeat(3,1fr);kapsayıcının genişliğini eşit olarak 
+    3 sütuna böler.
+
+    aspect-ratio:4/3; Ögenin genişlik ve yüksekliğinin arasında 4/3
+    Ögenin yüksekliğinin ve genişliğinin 3/4 kadar olmasını 
+    belirtir. Kapsayıcısı ve öge arasında.
+
+    transform:tanslateY(-100%); ögeyi kendi yüksekliğini 100%'ü kadar yukarıya kaydırır.
+
+    tranformd:translate(0);Ögeyi kendi tanımlı ekseninde konumlandırır.
+
+    box-shadow: 0 0 1rem var(--bg-color):
+    0:yatay 0:dikey 1rem:gölgenin bulanıklıgının belirtiyoruz.
+    var(--bg-color):Gölgenin renginin belirtiyor.
+ --> */
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,166 +59,408 @@
     outline: none;
     scroll-behavior: smooth;
     font-family: "Exo 2", sans-serif;
-}
-
-:root{
-    --bg-color:#1F242D;
-    --second-bg-color:#323946;
-    --text-color:#fff;
-    --main-color:#A21CAF;
-}
-
-html{
-    font-size:62.5%;
+  }
+  /* 
+  * evrensel seçicidir, yani sayfadaki tüm HTML öğelerini etkiler.
+  margin: 0; ve padding: 0; → Tüm öğelerin dış ve iç boşluklarını sıfırlar.
+  box-sizing: border-box; → İçerik kutusunun genişliğini hesaplamada
+   padding ve border'ı da dahil eder.
+  text-decoration: none; → Bağlantılardaki (a etiketleri gibi) alt çizgiyi kaldırır.
+  border: none; ve outline: none; → Form elemanları veya butonlardaki 
+  kenarlıkları ve odak çerçevelerini kaldırır.
+  scroll-behavior: smooth; → Sayfa içinde bağlantılarla kayarken yumuşak geçiş sağlar.
+  font-family: "Exo 2", sans-serif; → Sayfadaki yazı tipi Exo 2 olarak ayarlanır, 
+  eğer yoksa sans-serif olarak görüntülenir. */
+  :root {
+    --bg-color: #1f242d;
+    --second-bg-color: #323946;
+    --text-color: #fff;
+    --main-color: #a21caf;
+  }
+  /* 
+  :root seçici, CSS değişkenlerini tanımlamak için kullanılır.
+  --bg-color, --second-bg-color, --text-color ve --main-color gibi değişkenler tanımlanmış.
+  Bunlar sayfanın genel renklerini belirlemek için kullanılıyor. */
+  html {
+    font-size: 62.5%;
     overflow-x: hidden;
-}
-body{
+  }
+  body {
     background-color: var(--bg-color);
     color: var(--text-color);
-}
-
-section{
+  }
+  /* 
+  font-size: 62.5%; → Varsayılan 16px font büyüklüğünü 10px olarak ayarlar. 
+  Bu, rem kullanırken hesaplamaları kolaylaştırır. Örneğin, 1rem = 10px, 1.6rem = 16px olur.
+  overflow-x: hidden; → Yatay kaydırmayı engeller.
+  background-color: var(--bg-color); → Sayfa arka plan rengini koyu yapar (#1f242d).
+  color: var(--text-color); → Sayfa genelindeki yazı rengini beyaz yapar (#fff). */
+  section {
     min-height: 100vh;
     padding: 8rem 10% 2rem;
-}
-
-
-/* NAVBAR START */
-.menu-btn{
-    display: none;
-}
-.menu-icon{
-    display: none;
-}
-
-.logo{
-    color: var(--text-color);
-    font-size: 2.5rem;
-    font-weight: 600;
-    cursor: default;
-}
-.navbar a{
-    font-size: 1.7rem;
-    color: var(--text-color);
-    margin-left: 40px;
-}
-.navbar a:hover{
-    color: var(--main-color);
-}
-/* NAVBAR END */
-
-/* HOME SECTION START */
-.home{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.home-img{
-    position: relative;
-}
-.home-img-clip{
-    position: absolute;
+  }
+  /* 
+  min-height: 100vh; → Bölümün yüksekliğini tarayıcı ekranının tamamı kadar yapar.
+  padding: 8rem 10% 2rem;
+  8rem → Üstten boşluk bırakır.
+  10% → Sağdan ve soldan boşluk bırakır.
+  2rem → Alttan boşluk bırakır. */
+  
+  /* NAVBAR */
+  .header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: var(--main-color);
-    z-index: -1;
-    clip-path: polygon( 20% 15%,80% 15%, 100% 70% ,0 70% );
-}
-.home-img img{
-    width: 35vw;
-}
-.home-content h3{
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-.home-content p{
-    font-size: 1.6rem;
-}
-.social-links a {
-    display: inline-flex;
-    justify-content: center;
+    padding: 2rem 9%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    font-size: 6rem;
-    color: var(--main-color);
-    margin: 3rem 1.5rem 3rem 0;
-}
-.social-links a:hover{
-    background-color: var(--main-color);
-    color: var(--bg-color);
-    transition: all 0.3s ease;
-    background-clip: text;
-    text-shadow: 1rem 0.5rem 1rem var(--main-color);
-}
-.home-span{
-    color:var(--bg-color);
-    position: relative;
-}
-.frontend-span,
-.backend-span,
-.fullstack-span{
-    position: absolute;
-    color: transparent;
-    width: 0;
-    height: 100%;
-    background: var(--main-color);
-    background-clip: text;
-    left: 0;
-    right: 0;
-}
-.frontend-span{
-    animation: animate-front 6s ease-in-out infinite;
-}
-.backend-span{
-    animation: animate-back 6s ease-in-out infinite;
-}
-.fullstack-span{
-    animation: animate-full 6s ease-in-out infinite;
-}
-.last-span{
-    margin-left: 15px;
+    z-index: 100;
+  }
+  /* 
+  position: fixed; → Sayfanın üstüne sabitler, kaydırma sırasında yerinde kalır.
+  top: 0; left: 0; → Sayfanın sol üst köşesine hizalar.
+  width: 100%; → Tam genişlikte olur.
+  padding: 2rem 9%; → İç boşluk ekler (üst-alt 2rem, sağ-sol 9%).
+  background-color: var(--bg-color); → Arka plan rengini koyu yapar.
+  display: flex; → Navbar içindeki öğeleri yatay hizalar.
+  justify-content: space-between; → Sol ve sağdaki öğeleri maksimum boşlukla ayırır.
+  align-items: center; → Öğeleri dikey olarak hizalar.
+  z-index: 100; → Üst katmanda olmasını sağlar. */
+  .menu-btn {
+    display: none;
+  }
+  .menu-icon {
+    display: none;
+  }
+   
+   /* .menu-btn ve .menu-icon gizlenmiş. Muhtemelen mobil cihazlarda görünecek.
+  */
+  .logo {
+    font-size: 2.5rem;
     color: var(--text-color);
-}
-
-@keyframes animate-front{
-    0%{
-    width:0 ;
+    font-weight: 600;
+    cursor: default;
+  }
+  /* 
+  font-size: 2.5rem; → Yazı boyutu 25px olur.
+  color: var(--text-color); → Renk beyaz olur.
+  font-weight: 600; → Yazı kalınlaştırılır.
+  cursor: default; → İmleç değişmez.
+  */
+  .navbar a {
+    font-size: 1.7rem;
+    color: var(--text-color);
+    margin-left: 4rem;
+  }
+  /* 
+  font-size: 1.7rem; → Yazı boyutu 17px olur.
+  color: var(--text-color); → Beyaz renk olur.
+  margin-left: 4rem; → Bağlantılar arasında 40px boşluk olur. */
+  
+  .navbar a:hover {
+    color: var(--main-color);
+  }
+  /* Üzerine gelindiğinde (hover), rengi --main-color (#a21caf, morumsu ton) olur.
+   */
+  
+  /* HOME SECTION */
+  .home {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    15.5%{
+    /* .home → Home bölümünü esnek (flex) bir yapıya getiriyor.
+  display: flex; → İçeriklerini yatayda hizalamak için flexbox kullanıyor.
+  justify-content: center; → İçeriği yatay eksende ortalıyor.
+  align-items: center; → İçeriği dikey eksende ortalıyor. */
+    .home-img {
+      position: relative;
+    }
+    /* .home-img → Home bölümündeki görsel alanını belirler.
+  position: relative; → İçinde bulunan öğelerin konumlandırılmasına yardımcı olur. */
+    .home-img-clip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--main-color);
+      z-index: -1;
+      clip-path: polygon(20% 15%, 80% 15%, 100% 70%, 0 70%);
+    }
+    /* home-img-clip → Resmin arkasında mor bir şekil oluşturur.
+  position: absolute; → home-img öğesine göre mutlak konumlandırılır.
+  width: 100%; height: 100%; → Tam boyut kaplar.
+  background: var(--main-color); → Arka planı ana renk (#a21caf) yapar.
+  z-index: -1; → Resmin arkasında kalmasını sağlar.
+  clip-path: polygon(20% 15%, 80% 15%, 100% 70%, 0 70%);
+  Bu, çokgen (polygon) bir kesim efekti oluşturur.
+  Sol üst, sağ üst, sağ alt ve sol alt köşelere özel şekil verir. */
+    .home-img img {
+      width: 35vw;
+    }
+    /* width: 35vw; → Görselin genişliğini viewport genişliğinin %35'i kadar yapar.
+  Bu, ekran boyutuna göre ölçeklenmesini sağlar. */
+    .home-content h3 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    /* font-size: 3.2rem; → Başlık metni 32px boyutunda olur.
+  font-weight: 700; → Kalın (bold) yazı tipi kullanır.
+  margin-bottom: 2rem; → Altına 20px boşluk bırakır. */
+    .home-content h1 {
+      font-size: 5.6rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    /* font-size: 5.6rem; → Ana başlık 56px boyutunda olur.
+  line-height: 1.3; → Satır yüksekliği, yazıyı daha okunabilir hale getirir. */
+    .home-content p {
+      font-size: 1.6rem;
+    }
+    /* font-size: 1.6rem; → Paragraf metni 16px boyutunda olur.
+   */
+    .social-links a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6rem;
+      color: var(--main-color);
+      margin: 3rem 1.5rem 3rem 0;
+    }
+    /* display: inline-flex; → Her bağlantıyı (ikonları) inline-flex yaparak hizalama sağlar.
+  justify-content: center; align-items: center; → İkonları tam ortalar.
+  font-size: 6rem; → İkon boyutunu 60px yapar.
+  color: var(--main-color); → Varsayılan renk olarak morumsu (#a21caf) rengi belirler.
+  margin: 3rem 1.5rem 3rem 0;
+  Üst 30px, sağ 15px, alt 30px, sol 0px boşluk bırakır. */
+    .social-links a:hover {
+      background-color: var(--main-color);
+      color: var(--bg-color);
+      transition: all 0.3s ease;
+      background-clip: text;
+      text-shadow: 0 0 1rem var(--main-color);
+      /* box-shadow: 0 0 5px var(--main-color); */
+    }
+    /* Üzerine gelince (hover):
+  Arka plan mor olur.
+  Yazı rengi arka plan rengine döner.
+  Yumuşak geçiş için transition: all 0.3s ease; kullanılır.
+  Işıklı efekt için text-shadow: 0 0 1rem var(--main-color); eklenir.
+   */
+    .home-span {
+      color: var(--bg-color);
+      position: relative;
+    }
+    /* .home-span → Dinamik değişen metinlerin kapsayıcısıdır.
+  color: var(--bg-color); → Varsayılan olarak arka plan rengiyle 
+  aynı yaparak görünmez hale getirir.
+  position: relative; → İçindeki öğeleri konumlandırmak için referans sağlar. */
+    .frontend-span,
+    .backend-span,
+    .fullstack-span {
+      position: absolute;
+      color: transparent;
+      width: 0;
+      height: 100%;
+      background: var(--main-color);
+      background-clip: text;
+      left: 0;
+      top: 0;
+    }
+    /* position: absolute; → home-span içine mutlak konumlandırılmıştır.
+  color: transparent; → Normalde yazı şeffaf olur.
+  width: 0; → Animasyonla genişliği sıfırdan başlayarak büyür.
+  background-clip: text; → Arka plan rengiyle metin boyama efekti oluşturur. */
+    .frontend-span {
+      animation: animate-front 6s ease-in-out infinite;
+    }
+    .backend-span {
+      animation: animate-back 6s ease-in-out infinite;
+    }
+    .fullstack-span {
+      animation: animate-full 6s ease-in-out infinite;
+    }
+    
+    .last-span {
+      margin-left: 15rem;
+      color: var(--text-color);
+    }
+    @keyframes animate-front {
+      0% {
+        width: 0;
+      }
+      15.5% {
         width: 100%;
-    }
-    33%{
+      }
+      33% {
         width: 0;
+      }
+      /* 0% → Yazı görünmez.
+  15.5% → Yazı tamamen görünür olur.
+  33% → Yazı tekrar kaybolur. */
     }
-}
-@keyframes animate-back{
-    33%{
+    @keyframes animate-back {
+      33% {
         width: 0;
-    }
-    48.5%{
+      }
+      48.5% {
         width: 100%;
-    }
-    66%{
+      }
+      66% {
         width: 0;
+      }
+      /* Önceki yazı bittikten sonra başlar.
+  33% → Başlangıçta gizli.
+  48.5% → Görünür hale gelir.
+  66% → Tekrar gizlenir. */
     }
-}
-@keyframes animate-full {
-    66%{
+    @keyframes animate-full {
+      66% {
         width: 0;
-    }
-    81.5%{
+      }
+      81.5% {
         width: 100%;
+      }
+      100% {
+        width: 0;
+      }
+      /* Backend bittikten sonra başlar.
+  66% → Başlangıçta gizli.
+  81.5% → Görünür olur.
+  100% → Kaybolur. */
     }
+    
+  /* HOME END */
+  
+  
+  /* ABOUTH START */
+  .about {
+    display: flex; /* İçeriği yan yana hizalar */
+    justify-content: center; /* İçeriği yatayda ortalar */
+    align-items: center; /* İçeriği dikeyde ortalar */
+    gap: 2rem; /* Öğeler arasına 2 rem boşluk bırakır */
+    background: var(--second-bg-color); /* Arka plan rengini belirler */
+  }
+  .about-img img {
+    width: 35vw; /* Resmin genişliğini ekranın %35'i yapar */
+  }
+  
+  .heading {
+    text-align: center; /* Başlığı ortalar */
+    font-size: 4.5rem; /* Yazı boyutunu 4.5 rem yapar */
+  }
+  
+  .about-content h2 {
+    text-align: left; /* Yazıyı sola hizalar */
+    line-height: 1.2; /* Satır aralığını belirler */
+  }
+  .about-content h3 {
+    font-size: 2.6rem; /* Yazı boyutunu 2.6 rem yapar */
+  }
+  
+  .about-content p {
+    position: relative; /* Konumlandırma yaparken üst elemente göre hareket eder */
+    font-size: 1.6rem; /* Yazı boyutu */
+    margin: 2rem 0 3rem; /* Dış boşluk (üst 2rem, sağ-sol 0, alt 3rem) */
+  }
+  
+  .about-btn {
+    display: inline-block; /* Satır içi blok olarak davranır */
+    padding: 1rem 3rem; /* İç boşluk */
+    background: var(--main-color); /* Arka plan rengi */
+    border-radius: 4rem; /* Kenarları yuvarlar */
+    font-size: 1.6rem; /* Yazı boyutu */
+    color: var(--second-bg-color); /* Yazı rengi */
+    letter-spacing: 0.1rem; /* Harfler arası mesafe */
+    font-weight: 600; /* Yazı kalınlığı */
+    transition: 0.5s ease; /* Yumuşak geçiş efekti */
+    filter: drop-shadow(0 0 2rem var(--main-color)); /* Gölgelendirme efekti */
+  }
+  .about-btn:hover {
+    filter: none; /* Gölgeyi kaldırır */
+    color: var(--text-color); /* Yazı rengini değiştirir */
+  }
+  
+  .about-span {
+    color: var(--main-color);
+    position: relative;
+  }
+  /* 
+  color: var(--main-color); → 
+  Yazı rengini ana renk (--main-color) olarak ayarlar.
+  position: relative; →
+   Konumunu relative yaparak, gerektiğinde pozisyonunu değiştirebiliriz. */
+  
+  .about-img img {
+    animation: anim 30s infinite; /* 30 saniyelik döngüsel animasyon */
+    background: var(--main-color); /* Arka plan rengi */
+    filter: drop-shadow(0 0 10rem var(--main-color)); /* Gölge efekti */
+    border: 3px solid var(--text-color); /* Kenarlık */
+    border-radius: 30% 70% 53% 47% / 26% 46% 54% 74%; /* Oval kenar efekti */
+  }
+@keyframes anim{
+    0%,
     100%{
-        width: 0;
+        border-radius: 30% 70% 70% 30% / 30% 70%  48% 52%;
     }
+    10%{
+        border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+    }
+    20%{
+        border-radius: 67% 33% 47% 53% / 37% 20% 80% 63%;
+    }
+    30%{
+        border-radius: 39% 61% 47% 53 / 37% 40% 60% 63% ;
+    }
+    40%{
+        border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+    }
+    50%{
+        border-radius: 100%
+    }
+    60%{
+        border-radius: 39% 61% 47% 53 / 37% 40% 60% 63% ;
+    }
+    70%{
+        border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+    }
+    80%{
+        border-radius: 67% 33% 47% 53% / 37% 20% 80% 63%;
+    }
+    90%{
+        border-radius: 39% 61% 47% 53 / 37% 40% 60% 63% ;
+    }
+}
+
+.about-content p span {
+color: transparent;
+background-clip: text;
+background-image: linear-gradient(
+ to right,
+ var(--text-color),
+ var(--text-color)
+
+);
+background-repeat: no-repeat;
+background-size: 0% 100%;
+animation: animate-text 6s linear forwards;
+animation-timeline: view();
+animation-range: contain;
+animation-range-start: 10vh;
+animation-range-end: 40vh;
+}
+
+@keyframes animate-text {
+to {
+    background-size: 100% 100%;
+}
 }
 
 
 
-
-
-
-/* HOME SECTION END */
+/* ABOUTH END */
